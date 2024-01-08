@@ -1,0 +1,17 @@
+products_path = "./data/raw/products.json.gz"
+data_pre_processing_folder =  "./data/pre-processing/"
+data_pre_processing_name = "data.csv"
+label_pre_processing_name = "label.csv"
+label_encoder_folder = "./models/encoder/"
+label_encoder_name = "label_encoder.pkl"
+min_value = 100
+other_cat_value = "other"
+fill_nan_values_string = 'null'
+model_base_name = 'distilbert-base-uncased-finetuned-sst-2-english'
+tokenizer_path =  "./models/tokenizer/"
+model_path =  "./models/classifier/"
+epochs = 3
+lr = 5e-5
+batch_size = 16
+max_length = 18
+redis_port = 6379
