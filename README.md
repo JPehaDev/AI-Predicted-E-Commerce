@@ -1,13 +1,23 @@
 # E-Commerce-AI
 Repository for AnyoneAI final project 
 
+```bash
+git clone https://github.com/SantiCinotti/AnyoneAI-ECommerce
+
+git lfs install
+
+git lfs track "*.safetensors"
+
+git add .gitattributes
+```
+
 
 ## App
 
 Run:
 
 ```bash
-docker-compose up
+sudo docker-compose up
 ```
 
 
