@@ -2,6 +2,42 @@
 Repository for AnyoneAI final project 
 
 
+## App
+
+Run:
+
+```bash
+docker-compose up
+```
+
+
+API:
+[http://0.0.0.0:8080/](http://0.0.0.0:8080/)
+
+
+Labs:
+[http://localhost:8888/](http://localhost:8888/)
+
+
+**Model metrics**:
+
+- Validation metrics 
+    -   mean_accuracy: 0.910893976688385
+    -   f1 weighted: 0.9112792950366866
+    -   f1 micro: 0.9108335753703167
+    -   f1 macro: 0.8696858562343931
+
+- Test metrics 
+    -   mean_accuracy: 0.9111841917037964
+    -   f1 weighted: 0.9105223059330424
+    -   f1 micro: 0.9111326234269119
+    -   f1 macro: 0.8669798601511931
+
+
+---
+
+##  Challenge
+
 Overview
 In a nutshell, this project will result in an API service that is backed by an NLP model that will classify the textual elements of a product record (description, summary etc). The individual components for this project are very similar to what you have implemented in the last three Projects. You can reuse as much code as you want to leave yourself more time for working on the core dataset and model training.
 

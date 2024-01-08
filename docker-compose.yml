@@ -3,7 +3,7 @@ version: '3.8'
 services:
   api:
     build:
-      dockerfile: Dockerfile
+      dockerfile: ./docker/api
     ports:
       - "8080:8080"
     depends_on:
@@ -14,6 +14,7 @@ services:
       - app-network
     volumes:
       - ./:/app
+    container_name: api
 
   redis:
     image: redis:latest
@@ -21,13 +22,24 @@ services:
       - "6379:6379"
     networks:
       - app-network
+    container_name: redis
 
   jupyter:
-    image: jupyter/minimal-notebook
+    build:
+      dockerfile: ./docker/jupyter
     volumes:
       - ./work:/home/jovyan/work
+    networks:
+      - app-network
     ports:
       - 8888:8888
+    user: root
+    environment:
+      NB_USER: "root"
+      NB_UID: 0
+      NB_GID: 0
+      NOTEBOOK_ARGS: --allow-root
+    command: "start-notebook.sh --NotebookApp.token="
     container_name: jupyter_notebook
 
 
