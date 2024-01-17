@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        input, button {
+            margin: 5px 0;
+        }
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: auto;
+    width: 80%;
+    max-width: 600px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+}
+
+input[type="text"], input[type="number"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-image: url('bodega.png');
+    background-size: cover; /* Cover the entire page */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed; /* Optional: Fixes the background image during scroll */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+p {
+    color: #666;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.alert {
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.alert.success {
+    background-color: #4CAF50;
+}
+
+.alert.info {
+    background-color: #2196F3;
+}
+
+.alert.warning {
+    background-color: #ff9800;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ecommerce API</h1>
+           
+            <div>
+                <h2>Predict Category</h2>
+                <input type="text" id="predict_name" placeholder="Name">
+                <input type="text" id="predict_description" placeholder="Description">
+                <button onclick="predictCategory()">Predict Category</button>
+                <p id="predicted_category"></p>
+            </div>
+
+           
+        </div>
+        
+        <script>
+
+/*async function createNewItemAndPredict(name, description, category = null) {
+    // Define the API endpoint
+    const url = '/new_item_and_predict/';
+
+    // Prepare the data to be sent in the request
+    const data = { name, description, category };
+    alert(data);
+    try {
+        // Make the PUT request
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Check if the request was successful
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Parse the JSON response
+        const responseData = await response.json();
+
+        // Process the response data
+        console.log('Item created and predicted:', responseData);
+        return responseData;
+
+    } catch (error) {
+        console.error('Failed to create and predict item:', error);
+    }
+}*/
+
+// Example usage
+/*createNewItemAndPredict('Sample Item', 'This is a description', 'Electronics')
+    .then(item => console.log('Item created and predicted:', item))
+    .catch(error => console.error('Failed to create and predict item:', error));
+
+
+            async function createItem() {
+    const sku = parseInt(document.getElementById('sku').value, 10);
+
+    const name = document.getElementById('name').value;
+    const description = document.getElementById('description').value;
+    const category = document.getElementById('category').value;
+    //const data2 = { sku, name, description, category, predict_category };
+    console.log({ sku, name, description, category }); 
+
+
+    const response = await fetch('/create_item/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ sku, name, description, category })
+        //body: JSON.stringify(data2)
+    });
+    //console.log(response);
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    console.log(data);
+}*/
+
+
+        
+async function createNewItemAndPredict(name, description, category = 'other') {
+    try {
+        const formData = new FormData();
+        formData.append('name', '"name"');
+        formData.append('description', '"name"');
+        formData.append('category', '"name"');
+
+
+        const response = await fetch('/new_item_and_predict/', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: formData
+            //body: JSON.stringify({ 'iphone 6', 'case', '' })
+        });
+
+        if (!response.ok) {
+            // If the server responds with an error, parse the error message
+            const errorData = await response.json();
+            alert(`Error: ${response.status} - ${errorData.detail || 'Unknown Error'}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Parse and display the successful response
+        const data = await response.json();
+        alert(`Item created successfully: ${JSON.stringify(data)}`);
+        console.log(data);
+
+    } catch (error) {
+        console.error('Failed to create and predict item:', error);
+        alert(`Failed to create and predict item: ${error.message}`);
+    }
+}
+        
+            async function predictCategory() {
+                const name = document.getElementById('predict_name').value;
+                const description = document.getElementById('predict_description').value;
+                const response = await fetch(`/predict_category/?name=${name}&description=${description}`);
+                const data = await response.text();
+                document.getElementById('predicted_category').innerText = data;
+
+                /*createNewItemAndPredict('Sample Item', 'This is a description', 'Electronics')
+                    .then(item => console.log('Item created and predicted:', item))
+                .catch(error => console.error('Failed to create and predict item:', error));*/
+            }
+        
+  
+</script>
+
+</body>
+</html>

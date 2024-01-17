@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        input, button {
+            margin: 5px 0;
+        }
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: auto;
+    width: 80%;
+    max-width: 600px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+}
+
+input[type="text"], input[type="number"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-image: url('bodega.png');
+    background-size: cover; /* Cover the entire page */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed; /* Optional: Fixes the background image during scroll */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+p {
+    color: #666;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.alert {
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.alert.success {
+    background-color: #4CAF50;
+}
+
+.alert.info {
+    background-color: #2196F3;
+}
+
+.alert.warning {
+    background-color: #ff9800;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ecommerce API</h1>
+
+        <div>
+            <h2>Create Item</h2>
+            <input type="text" id="sku" placeholder="SKU">
+            <input type="text" id="name" placeholder="Name">
+            <input type="text" id="description" placeholder="Description">
+            <input type="text" id="category" placeholder="Category">
+            <button onclick="createItem()">Create Item</button>
+        </div>
+
+        <div>
+            <h2>Load Items</h2>
+            <button onclick="loadItems()">Load Items</button>
+        </div>
+
+        <div>
+            <h2>Get Item</h2>
+            <input type="text" id="get_sku" placeholder="SKU">
+            <button onclick="getItem()">Get Item</button>
+            <p id="item_details"></p>
+            </div>
+            <div>
+                <h2>Predict Category</h2>
+                <input type="text" id="predict_name" placeholder="Name">
+                <input type="text" id="predict_description" placeholder="Description">
+                <button onclick="predictCategory()">Predict Category</button>
+                <p id="predicted_category"></p>
+            </div>
+        
+            <div>
+                <h2>Update Predicted Category</h2>
+                <input type="text" id="update_sku" placeholder="SKU">
+                <button onclick="updatePredictCategory()">Update Category</button>
+                <p id="updated_item_details"></p>
+            </div>
+        </div>
+        
+        <script>
+            async function createItem() {
+                const sku = document.getElementById('sku').value;
+                const name = document.getElementById('name').value;
+                const description = document.getElementById('description').value;
+                const category = document.getElementById('category').value;
+                const response = await fetch(`/create_item/?sku=${sku}&name=${name}&description=${description}&category=${category}`, { method: 'PUT' });
+                const data = await response.json();
+                console.log(data);
+            }
+        
+            async function getItem() {
+                const sku = document.getElementById('get_sku').value;
+                const response = await fetch(`/get_item/?sku=${sku}`);
+                const data = await response.json();
+                document.getElementById('item_details').innerText = JSON.stringify(data);
+            }
+        
+            async function predictCategory() {
+                const name = document.getElementById('predict_name').value;
+                const description = document.getElementById('predict_description').value;
+                const response = await fetch(`/predict_category/?name=${name}&description=${description}`);
+                const data = await response.text();
+                document.getElementById('predicted_category').innerText = data;
+            }
+        
+            async function updatePredictCategory() {
+                const sku = document.getElementById('update_sku').value;
+                const response = await fetch(`/update_predict_category/?sku=${sku}`, { method: 'PUT' });
+                const data = await response.json();
+                document.getElementById('updated_item_details').innerText = JSON.stringify(data);
+                }
+</script>
+
+</body>
+</html>

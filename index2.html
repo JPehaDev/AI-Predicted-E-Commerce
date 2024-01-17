@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ecommerce ML API</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Ecommerce ML Model Interface</h1>
+
+    <div class="container">
+        <div class="column">
+            <!-- Form for creating a new item -->
+            <h2>Create Item</h2>
+            <form action="/create_item/" method="post">
+                SKU: <input type="text" name="sku"><br>
+                Name: <input type="text" name="name"><br>
+                Description: <input type="text" name="description"><br>
+                Category: <input type="text" name="category"><br>
+                <input type="submit" value="Create Item">
+            </form>
+
+            <!-- Form for loading items -->
+            <h2>Load Items</h2>
+            <form action="/load_items/" method="put">
+                <input type="submit" value="Load Items">
+            </form>
+        </div>
+
+        <div class="column">
+            <!-- Form for reading an item -->
+            <h2>Get Item</h2>
+            <form action="/get_item/" method="get">
+                SKU: <input type="text" name="sku"><br>
+                <input type="submit" value="Get Item">
+            </form>
+
+            <!-- Form for predicting category -->
+            <h2>Predict Category</h2>
+            <form action="/predict_category/" method="get">
+                Name: <input type="text" name="name"><br>
+                Description: <input type="text" name="description"><br>
+                <input type="submit" value="Predict Category">
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
