@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light gray background for the page */
+            background-image: url('static/bodega.png');
+            margin: 0;
+            padding: 20px;
+            background-image: url('img/bodega.png') repeat 0 0;
+        }
+
+        .container {
+            background-color: #fff; /* White background for the container */
+            border-radius: 8px; /* Rounded corners for the container */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for the container */
+            padding: 20px;
+            margin: auto;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1, h2, p {
+            color: #333; /* Dark gray color for text */
+            text-align: center;
+            margin: 10px 0; /* Margin for spacing */
+        }
+
+        p {
+            background-color: #f9f9f9; /* Very light gray background for paragraphs */
+            padding: 10px; /* Padding for paragraphs */
+            border-radius: 4px; /* Rounded corners for paragraphs */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for paragraphs */
+            max-width: 80%;
+            margin: 10px auto; /* Centering paragraphs */
+        }
+
+        .back-button {
+            margin: 20px 0; /* Spacing above and below the button */
+            padding: 10px 20px; /* Padding inside the button */
+            font-size: 16px; /* Button text size */
+            background-color: #4CAF50; /* Button color */
+            color: white; /* Text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Mouse cursor on hover */
+        }
+
+        .back-button:hover {
+            background-color: #45a049; /* Slightly darker color on hover */
+        }
+    </style>
+</head>
+    <body>
+        <h1>Item created and predicted</h1>
+        <p>Sku: {{ item.sku }}</p>
+        <p>Name: {{ item.name }}</p>
+        <p>Description: {{ item.description }}</p>
+        <!--<p>Category: {{ item.category }}</p>-->
+        <p>Predicted Category: {{ item.predict_category }}</p>
+        <button class="back-button" onclick="window.history.back();">Go Back</button>   
+    </body>
+</html>

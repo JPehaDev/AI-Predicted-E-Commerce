@@ -1,1 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce API</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light gray background for the page */
+            margin: 0;
+            padding: 20px;
+            background-image: url('static/bodega.png'); /* Add this line */
+            background-size: cover; /* Cover the entire page */
+            background-attachment: fixed;
+        }
 
+        .container {
+            background-color: #fff; /* White background for the container */
+            border-radius: 8px; /* Rounded corners for the container */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for the container */
+            padding: 20px;
+            margin: auto;
+            width: 40%;
+            max-width: 600px;
+        }
+
+        h1, h2 {
+            color: #333; /* Dark gray color for headings */
+            text-align: center;
+        }
+
+        input, button {
+            width: 100%; /* Full width for inputs and button */
+            padding: 10px; /* Padding for inputs and button */
+            margin: 10px 0; /* Margin for inputs and button */
+            border: 1px solid #ddd; /* Border for inputs and button */
+            border-radius: 4px; /* Rounded corners for inputs and button */
+            box-sizing: border-box; /* Box sizing property for accurate width calculations */
+        }
+
+        button {
+            background-color: #4CAF50; /* Green background for the button */
+            color: white; /* White text for the button */
+            cursor: pointer; /* Cursor changes to pointer when hovering over the button */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Slightly darker green background for the button on hover */
+        }
+
+        form {
+            width: 50%; /* Width of the form set to 50% */
+            background-color: #f9f9f9; /* Very light gray background for the form */
+            padding: 20px; /* Padding for the form */
+            border-radius: 8px; /* Rounded corners for the form */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for the form */
+            margin: auto; /* Auto margins for horizontal centering */
+        }
+    </style>
+</head>
+    <body>
+        <form action="/new_item_and_predict/" method="post">
+            <h1>New Item and Prediction Form</h1>
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="description" placeholder="Description" required>
+            <!--<input type="text" name="category" placeholder="Category (optional)" type="hidden">-->
+            <button type="submit">Predict</button>
+        </form>
+    </body>
+</html>
