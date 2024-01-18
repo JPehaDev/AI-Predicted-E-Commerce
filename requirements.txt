@@ -7,3 +7,4 @@ redis==5.0.1
 jupyter==1.0.0
 safetensors==0.4.1
 nltk==3.8.1
+python-multipart==0.0.6
