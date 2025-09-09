@@ -230,6 +230,6 @@
   "sinusoidal_pos_embds": false,
   "tie_weights_": true,
   "torch_dtype": "float32",
-  "transformers_version": "4.35.2",
+  "transformers_version": "4.36.2",
   "vocab_size": 30522
 }
