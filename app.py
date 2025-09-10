@@ -9,43 +9,62 @@ import uuid
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
+from fastapi import HTTPException
 
 """
 app.py
 This module implements a FastAPI application for an e-commerce machine learning model API.
 It provides endpoints for creating, loading, retrieving, and updating product items, as well as predicting product categories.
-The application uses Redis as a backend for storing product data and integrates with a machine learning model for category prediction.
+Redis is used as the backend storage for product items, and Jinja2 is used for HTML template rendering.
 Endpoints:
------------
+----------
 - POST /create_item/:
-    Create a new product item and store it in Redis.
+    Create a new item and store it in Redis.
+    Parameters: sku (int), name (str), description (str), category (str, optional), predict_category (str, optional)
+    Returns: Item
 - PUT /load_items/:
-    Load multiple product items from a data source into Redis.
+    Load multiple items from a data source into Redis.
+    Returns: dict with total items and total loaded items.
 - GET /get_item/:
-    Retrieve a product item from Redis by SKU.
+    Retrieve an item from Redis by SKU.
+    Parameters: sku (str)
+    Returns: Item
 - GET /predict_category/:
     Predict the category of a product based on its name and description.
+    Parameters: name (str), description (str)
+    Returns: str (predicted category)
 - PUT /update_predict_category/:
     Update the predicted category of a product item in Redis.
+    Parameters: sku (str)
+    Returns: dict (updated item data)
 - GET /:
     Render an HTML form for item creation and prediction.
+    Returns: HTMLResponse
 - POST /new_item_and_predict/:
-    Create a new product item, predict its category, store it in Redis, and render the result in an HTML template.
+    Create a new item, predict its category, store it in Redis, and render the result in an HTML template.
+    Parameters: name (str, form), description (str, form), category (str, form, optional)
+    Returns: HTMLResponse (rendered template with item)
+Classes:
+--------
+- Item (pydantic.BaseModel):
+    Represents a product item with SKU, name, description, category, and predicted category.
 Dependencies:
 -------------
-- FastAPI: Web framework for building APIs.
-- Redis: In-memory data store for product information.
-- Pydantic: Data validation and settings management.
-- Jinja2: Templating engine for HTML responses.
-- src.preprocessdata.read_data: Function to read product data.
-- src.settings.redis_port: Redis port configuration.
-- src.predict.main_predict: Function to predict product category.
+- FastAPI
+- Pydantic
+- Redis
+- Jinja2Templates
+- Starlette
+- src.preprocessdata.read_data
+- src.settings.redis_port
+- src.predict.main_predict
 Notes:
 ------
-- The application expects a running Redis instance.
-- HTML templates should be located in the 'templates' directory.
-- Static files should be located in the 'static' directory.
+- Redis is used for storing and retrieving product items.
+- The application supports both API and HTML form interactions.
+- Category prediction is performed using an external ML model function.
 """
+
 # Initialize FastAPI app and Redis client
 app =  FastAPI(host="localhost", title="ecommerce", description="API for ecommerce ml model", version="1.0", docs_url="/docs")
 # Initialize Redis client
@@ -93,10 +112,24 @@ async def load_items() -> dict:
 
     return {"total_items": len(products), "total_load_items": load_items}
 
-@app.get("/get_item/")
-# Retrieve an item from Redis by SKU
-async def read_items(sku: str) -> dict:
-    return redis_client.hgetall(str(sku))
+@app.get("/get_item/", response_model=Item)
+async def get_item(sku: str) -> Item:
+    raw = redis_client.hgetall(str(sku))
+    if not raw:
+        raise HTTPException(status_code=404, detail="SKU not found")
+
+    data = {k.decode(): v.decode() for k, v in raw.items()}
+
+    def nonefix(x):
+        return None if x in (None, "", "None", "null", "NULL") else x
+
+    return Item(
+        sku=str(sku),
+        name=data.get("name", ""),
+        description=data.get("description", ""),
+        category=nonefix(data.get("category")),
+        predict_category=nonefix(data.get("predict_category")),
+    )
 
 @app.get("/predict_category/")
 # Predict the category of a product based on its name and description
@@ -139,7 +172,3 @@ async def new_item_and_predict(request: Request, name:str = Form(...), descripti
         "category": str(item.category), "predict_category": str(item.predict_category)
         })
     return templates.TemplateResponse("result.html", {"request": request, "item": item})
-
-@app.get("/get_item/")
-async def read_items(sku: str) -> dict:
-    return redis_client.hgetall(str(sku))

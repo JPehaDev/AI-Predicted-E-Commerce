@@ -116,74 +116,6 @@ p {
         
         <script>
 
-/*async function createNewItemAndPredict(name, description, category = null) {
-    // Define the API endpoint
-    const url = '/new_item_and_predict/';
-
-    // Prepare the data to be sent in the request
-    const data = { name, description, category };
-    alert(data);
-    try {
-        // Make the PUT request
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-
-        // Check if the request was successful
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        // Parse the JSON response
-        const responseData = await response.json();
-
-        // Process the response data
-        console.log('Item created and predicted:', responseData);
-        return responseData;
-
-    } catch (error) {
-        console.error('Failed to create and predict item:', error);
-    }
-}*/
-
-// Example usage
-/*createNewItemAndPredict('Sample Item', 'This is a description', 'Electronics')
-    .then(item => console.log('Item created and predicted:', item))
-    .catch(error => console.error('Failed to create and predict item:', error));
-
-
-            async function createItem() {
-    const sku = parseInt(document.getElementById('sku').value, 10);
-
-    const name = document.getElementById('name').value;
-    const description = document.getElementById('description').value;
-    const category = document.getElementById('category').value;
-    //const data2 = { sku, name, description, category, predict_category };
-    console.log({ sku, name, description, category }); 
-
-
-    const response = await fetch('/create_item/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ sku, name, description, category })
-        //body: JSON.stringify(data2)
-    });
-    //console.log(response);
-    const data = await response.json();
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    console.log(data);
-}*/
-
-
-        
 async function createNewItemAndPredict(name, description, category = 'other') {
     try {
         const formData = new FormData();
@@ -225,10 +157,6 @@ async function createNewItemAndPredict(name, description, category = 'other') {
                 const response = await fetch(`/predict_category/?name=${name}&description=${description}`);
                 const data = await response.text();
                 document.getElementById('predicted_category').innerText = data;
-
-                /*createNewItemAndPredict('Sample Item', 'This is a description', 'Electronics')
-                    .then(item => console.log('Item created and predicted:', item))
-                .catch(error => console.error('Failed to create and predict item:', error));*/
             }
         
   
