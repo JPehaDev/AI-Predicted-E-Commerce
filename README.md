@@ -51,10 +51,9 @@ This project trains and serves a **text classifier** for e‑commerce. Given a p
 ---
 
 ## 🗺️ Workflow Diagram
-> Vector (preferred) and PNG files live under `assets/`.
 
 <p align="center">
-  <img src="assets/ai_ecommerce_workflow_v2.svg" alt="AI E‑Commerce Workflow" width="900">
+  <img src="assets/ai_ecommerce_workflow_demo.gif" alt="AI E-Commerce Workflow" width="900">
 </p>
 
 ---
